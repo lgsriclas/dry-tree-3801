@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'doctor show page' do
+RSpec.describe 'hospital show page' do
   before :each do
     @hospital = Hospital.create!(name: "Grey Sloan Memorial Hospital")
 
@@ -18,28 +18,9 @@ RSpec.describe 'doctor show page' do
     @dp_4 = DoctorPatient.create(doctor: @dr_shepherd, patient: @patient_4)
   end
 
-  it 'shows doctor information' do
-    visit "/doctors/#{@dr_bailey.id}"
-
-    expect(page).to have_content(@dr_bailey.name)
-    expect(page).to have_content(@dr_bailey.specialty)
-    expect(page).to have_content(@dr_bailey.university)
-    expect(page).to_not have_content(@dr_shepherd.name)
-  end
-
-  it 'show the hospital where the doctor works' do
-    visit "/doctors/#{@dr_bailey.id}"
+  it 'shows the hospital name' do
+    visit "/hospitals/#{@hospital.id}"
 
     expect(page).to have_content(@hospital.name)
-  end
-
-  it 'shows the names of the doctors patients' do
-    visit "/doctors/#{@dr_shepherd.id}"
-
-    # expect(page).to have_content(@dr_shepherd.name)
-    expect(page).to have_content(@patient_3.name)
-    expect(page).to have_content(@patient_4.name)
-    expect(page).to_not have_content(@patient_1.name)
-    expect(page).to_not have_content(@patient_2.name)
   end
 end
