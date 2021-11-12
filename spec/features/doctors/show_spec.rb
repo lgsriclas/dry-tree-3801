@@ -13,4 +13,14 @@ RSpec.describe 'doctors show page' do
     expect(page).to have_content(@dr_bailey.specialty)
     expect(page).to have_content(@dr_bailey.university)
   end
+
+  it 'show the hospital where the doctor works' do
+    visit "/doctors/#{@dr_bailey.id}"
+
+    expect(page).to have_content(@hospital.name)
+  end
+
+  it 'shows the names of the doctors patients' do
+    
+  end
 end
