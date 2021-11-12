@@ -5,7 +5,7 @@ RSpec.describe 'doctor show page' do
     @hospital = Hospital.create!(name: "Grey Sloan Memorial Hospital")
 
     @dr_bailey = @hospital.doctors.create!(name: "Miranda Bailey", specialty: "General Surgery", university: "Stanford University")
-    @dr_shepherd = @hospital.doctors.create!(name: "Derek Shepherd ", specialty: "Neurosurgery", university: "Bowdoin College")
+    @dr_shepherd = @hospital.doctors.create!(name: "Derek Shepherd", specialty: "Neurosurgery", university: "Bowdoin College")
 
     @patient_1 = Patient.create!(name: "Sally Brown", age: 8)
     @patient_2 = Patient.create!(name: "Charlie Brown", age: 10)
@@ -36,10 +36,18 @@ RSpec.describe 'doctor show page' do
   it 'shows the names of the doctors patients' do
     visit "/doctors/#{@dr_shepherd.id}"
 
-    # expect(page).to have_content(@dr_shepherd.name)
+    expect(page).to have_content(@dr_shepherd.name)
     expect(page).to have_content(@patient_3.name)
     expect(page).to have_content(@patient_4.name)
     expect(page).to_not have_content(@patient_1.name)
     expect(page).to_not have_content(@patient_2.name)
+  end
+
+  it 'has a button to remove patients from doctor caseload' do
+    visit "/doctors/#{@dr_shepherd.id}"
+
+    expect(page).to have_button "Remove #{@patient_3.name}"
+    expect(page).to have_button "Remove #{@patient_4.name}"
+
   end
 end
