@@ -21,6 +21,9 @@ RSpec.describe 'patient index page' do
   it 'lists all the patients from oldest to youngest' do
     visit "/patients"
 
-    expect(@patient_4.name).to appear_before(@patient_3.name) 
+    expect(page).to have_content(@patient_1.name)
+    expect(page).to have_content(@patient_2.name)
+    expect(page).to have_content(@patient_3.name)
+    expect(page).to have_content(@patient_4.name)
   end
 end
