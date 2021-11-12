@@ -48,6 +48,16 @@ RSpec.describe 'doctor show page' do
 
     expect(page).to have_button "Remove #{@patient_3.name}"
     expect(page).to have_button "Remove #{@patient_4.name}"
+  end
 
+  it 'redirects to doctor show page after removing a patient from a doctor' do
+    visit "/doctors/#{@dr_bailey.id}"
+
+    within("#dp-#{@dp_1.id}") do
+      click_button "Remove #{@patient_1.name}"
+    end
+
+    expect(current_path).to eq("/doctors/#{@dr_bailey.id}")
+    expect(page).to_not have_content(@patient_1.name)
   end
 end
