@@ -2,7 +2,7 @@
 
 <h4>Number of Doctors Currently Employed: <%= @hospital.doctors.count %></h4>
 <h4>Universities Attended by our Doctors: </h4>
-  <% @hospital.doctors.each do |doctor| %>
+  <% @hospital.doctors.unique_university.each do |doctor| %>
     <%= doctor.university %><br>
   <% end %>
 

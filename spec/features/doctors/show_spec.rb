@@ -6,6 +6,7 @@ RSpec.describe 'doctor show page' do
 
     @dr_bailey = @hospital.doctors.create!(name: "Miranda Bailey", specialty: "General Surgery", university: "Stanford University")
     @dr_shepherd = @hospital.doctors.create!(name: "Derek Shepherd", specialty: "Neurosurgery", university: "Bowdoin College")
+    @dr_sanders = @hospital.doctors.create!(name: "Larry Sanders", specialty: "Emergency Medicine", university: "Stanford University")
 
     @patient_1 = Patient.create!(name: "Sally Brown", age: 8)
     @patient_2 = Patient.create!(name: "Charlie Brown", age: 10)
@@ -59,5 +60,12 @@ RSpec.describe 'doctor show page' do
 
     expect(current_path).to eq("/doctors/#{@dr_bailey.id}")
     expect(page).to_not have_content(@patient_1.name)
+
+    within("#dp-#{@dp_2.id}") do
+      click_button "Remove #{@patient_2.name}"
+    end
+
+    expect(current_path).to eq("/doctors/#{@dr_bailey.id}")
+    expect(page).to_not have_content(@patient_2.name)
   end
 end
